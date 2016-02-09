@@ -24,15 +24,6 @@ sudo apt-get -y install \
     unixodbc-dev
 
 
-
-cat <<'HERE' | tee -a $HOME/.bash_profile
-export CC=clang
-export CXX=clang++
-export GOPATH=$HOME/.gocode
-export EDITOR=vim
-export LD_LIBRARY_PATH=/usr/local/lib
-HERE
-
 PG_CONF=`sudo -u postgres psql -c "show config_file;" -t -A`
 PG_DIR=`dirname $PG_CONF`
 
@@ -50,6 +41,19 @@ git clone https://github.com/scrosby/OSM-binary
 git clone https://github.com/facebook/folly.git -b v0.57.0 --depth 1
 wget http://netix.dl.sourceforge.net/project/boost/boost/1.56.0/boost_1_56_0.tar.bz2
 wget http://pocoproject.org/releases/poco-1.6.1/poco-1.6.1-all.tar.gz
+wget https://storage.googleapis.com/golang/go1.5.3.linux-amd64.tar.gz
+
+cat <<'HERE' | tee -a $HOME/.bash_profile
+export CC=clang
+export CXX=clang++
+export GOPATH=$HOME/.gocode
+export EDITOR=vim
+export LD_LIBRARY_PATH=/usr/local/lib
+export PATH=/usr/local/go/bin:$PATH
+HERE
+source $HOME/.bash_profile
+
+sudo tar -C /usr/local -xzf go1.5.3.linux-amd64.tar.gz
 
 tar -xvf poco-1.6.1-all.tar.gz
 tar -xvf boost_1_56_0.tar.bz2
